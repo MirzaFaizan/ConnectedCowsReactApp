@@ -29,14 +29,57 @@ let sampleDataPie = [
 ]
 
 class Tab1Details extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state={
+      isLoading: true,
+      dataSource:[]
+    }
+  }
+
+  componentDidMount(){
+    fetch('https://connectedcows.herokuapp.com/records/ShowRecords')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        
+        let LineGraph = responseJson.info.map((item)=>{
+          return {y:item.temp,x:item.createdOn}
+        })
+
+        LineGraph = LineGraph.splice(0,Math.floor(LineGraph.length / 10))
+        console.log(LineGraph);
+        this.setState({
+          isLoading: false,
+          dataSource: LineGraph,
+        });
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
+  }
+
+
   render() {
-    return (
+    
+    if(this.state.isLoading){
+      return (
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+            <Text>Loading ... </Text>
+        </View>
+      );
+    }
+    else{
+      return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <PureChart  data={sampleData} type='line' />
+      <Text>Line Graph</Text>
+        <PureChart  data={this.state.dataSource} type='line' />
+      <Text>Pie Chart</Text>
         <PureChart data={sampleDataPie} type='pie' />
 
       </View>
-    );
+    );}
+    
   }
 }
 
