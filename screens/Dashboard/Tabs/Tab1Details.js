@@ -38,8 +38,6 @@ class Tab1Details extends React.Component {
         let LineGraph = responseJson.info.map((item)=>{
           return {y:item.temp,x:item.createdOn}
         })
-
-        LineGraph = LineGraph.splice(0,Math.floor(LineGraph.length / 10))
         console.log(LineGraph);
         this.setState({
           isLoading: false,
