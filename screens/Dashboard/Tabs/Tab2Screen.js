@@ -10,7 +10,7 @@ class Tab2Screen extends React.Component {
         <Text style={{fontSize:30, borderRadius:1,borderColor:'black'}} >Dr. Johnny Sins</Text>
         <Text style={{fontSize:25, borderRadius:1,borderColor:'black'}} >+92-303-0518087</Text>
         <Divider/>
-        <Ionicons name="md-call" size={100} color="green" />
+        <Ionicons name="md-call" size={100} color="white" />
 
         <Button  mode="outlined" onPress={() => console.log('Pressed')}>
           Contact Vet

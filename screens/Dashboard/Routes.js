@@ -23,13 +23,13 @@ const Tab1 = createStackNavigator(
       screen: Tab1Screen,
       navigationOptions: {
         headerLeft: null,
-        headerTitle: "Tab 1 Screen"
+        headerTitle: "All Devices"
       }
     },
     Tab1Details: {
       screen: Tab1Details,
       navigationOptions: {
-        headerTitle: "Tab 1 without botton bar"
+        headerTitle: "Details"
       }
     }
   },
