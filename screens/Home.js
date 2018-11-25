@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text,Image } from "react-native";
 import { Button, Divider } from "react-native-paper";
 import {TextInput} from "react-native-paper";
+import Dialog from "react-native-dialog";
 
 class HomeScreen extends React.Component {
 
@@ -10,7 +11,32 @@ class HomeScreen extends React.Component {
     this.state={
       username:'',
       password:'',
+      visable:false
     }
+  }
+
+
+  handleCancel = () => {
+    this.setState({ visable: false });
+  };
+
+  Login=()=>{
+
+    fetch(`https://connectedcows.herokuapp.com/login/${this.state.username}/${this.state.password}`)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson);
+        if(responseJson.message){
+          this.setState({visable:true})
+        }
+        else{
+          this.props.navigation.navigate("Dashboard")
+        }
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
+
   }
 
   render() {
@@ -37,6 +63,7 @@ class HomeScreen extends React.Component {
 
         <TextInput
           label='Password'
+          secureTextEntry={true}
           value={this.state.password}
           onChangeText={password => this.setState({ password })}
           width={200}
@@ -46,10 +73,20 @@ class HomeScreen extends React.Component {
 
         <Button
             raised
-            onPress={() => this.props.navigation.navigate("Dashboard")}
+            onPress={this.Login}
           >
             <Text>Login</Text>
         </Button>
+
+          <Dialog.Container visible={this.state.visable}>
+          <Dialog.Title>Alert</Dialog.Title>
+          <Dialog.Description>
+            Enter valid username password
+          </Dialog.Description>
+          <Dialog.Button label="Okay" onPress={this.handleCancel} />
+        </Dialog.Container>
+
+
       </View>
     );
   }

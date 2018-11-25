@@ -9,6 +9,7 @@
     "expo": "^27.0.0",
     "react": "16.3.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-27.0.0.tar.gz",
+    "react-native-dialog": "^5.4.0",
     "react-native-elements": "0.18.5",
     "react-native-linear-gradient": "2.4.0",
     "react-native-paper": "1.8.0",
