@@ -17,25 +17,25 @@ class Tab2Screen extends React.Component {
   sendMessage=()=>{
     console.log("Send message here")
   }
+
   render() {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Headline>Contact Vet</Headline>
-        <Text>We will call you right back</Text>
-        <Ionicons name="md-call" size={50} color="green" />
-        <Text>Dr.Sins</Text>
-        <Text>+92-303-0518087</Text>
-        <Divider/>
-        <TextInput
-          mode='outlined'
-          mutiline={true}
-          numberOfLines={10}
-          label='Message'
-          placeholder='Please enter your issue here we will contact you right back'
-          value={this.state.message}
-          onChangeText={message => this.setState({ message })}
-          width={300}
-        />
+        <Headline style={{marginTop:10}}>Contact Vet</Headline>
+            <Ionicons name="md-call" size={50} color="green" />
+            <Divider/>
+            <Text>Dr.Sins</Text>
+            <Text>+92-303-0518087</Text>
+          <TextInput
+            mode='outlined'
+            mutiline={true}
+            numberOfLines={10}
+            label='Message'
+            placeholder='Please enter your issue here we will contact you right back'
+            value={this.state.message}
+            onChangeText={message => this.setState({ message })}
+            width={300}
+          />
 
         <Divider/>
 
@@ -56,5 +56,7 @@ class Tab2Screen extends React.Component {
     );
   }
 }
+
+
 
 export default Tab2Screen;
