@@ -86,7 +86,6 @@ class HomeScreen extends React.Component {
           <Dialog.Button label="Okay" onPress={this.handleCancel} />
         </Dialog.Container>
 
-
       </View>
     );
   }
