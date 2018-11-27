@@ -1,12 +1,13 @@
 export default {
   headerStyle: {
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
+    alignContent:'center'
   },
   headerTitleStyle: {
     fontWeight: "bold",
     color: "#fff",
     fontSize: 18,
-    justifyContent:'center',
+    alignSelf:'center',
     zIndex: 1,
     lineHeight: 23
   },

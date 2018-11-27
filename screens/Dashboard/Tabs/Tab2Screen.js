@@ -15,7 +15,35 @@ class Tab2Screen extends React.Component {
   }
 
   sendMessage=()=>{
-    console.log("Send message here")
+ //Validae Token
+    var details = {
+      'message':this.state.message,
+      };
+      
+
+      var formBody = [];
+      for (var property in details) {
+        var encodedKey = encodeURIComponent(property);
+        var encodedValue = encodeURIComponent(details[property]);
+        formBody.push(encodedKey + "=" + encodedValue);
+      }
+      formBody = formBody.join("&");
+      
+      fetch('https://connectedcows.herokuapp.com/message/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+        },
+        body: formBody
+      }).then(res=>res.json())
+      .then(res=>{
+        console.log("Submitted");
+          this.setState({
+            message:'',
+          })
+        }
+      );
+
   }
 
   render() {
