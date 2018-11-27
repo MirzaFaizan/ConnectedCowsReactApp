@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "customheaderandbottomnavbar",
-    "description": "No description",
+    "name": "Connected Cows Terminal",
+    "description": "This is a cross platform application for both iOS and Android",
     "slug": "snack-rywR6v80Q",
     "privacy": "unlisted",
     "sdkVersion": "27.0.0",

@@ -2,9 +2,7 @@ import React from "react";
 
 import {
   Image,
-  Platform,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -56,50 +54,48 @@ class Tab1Screen extends React.Component {
         return (
           <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
     
-            <ScrollView style={{width:350,top:20}}>
+            <ScrollView style={{width:350,top:30}}>
             
-            <View style={{justifyContent:'flex-start',flexDirection:'row'}} onPress={()=>{console.log('touch')}}>
-              <View>
-                 <Image 
-                    style={{
-                      height: 100,
-                      width: 100,
-                      borderWidth: 5,
-                      borderRadius: 10
-                    }}
-                    source={require('../../../assets/images/logo.png')}
-                  />
-              </View>
-              <View style={{justifyContent:'space-around'}}>
-              <Headline>Title</Headline>
-                <Text>description</Text>
-              </View>
-            </View>
-
-            <ListSection>
             {Object.values(this.state.dataSource.info).map((type,index) => {
                 return (
-                  <View key={index}>
-                    <ListItem 
-                      title={"Cow # "+index+1}
-                      description={"Farm ID :"+ type.farmid + "\nOwner ID : "+type.ownerid}
-                      left={()=>{<Text>wow</Text>}}
-                      onPress={()=>console.log(index)}
-                    />
-                  
-                    <Divider style={{height: 5, backgroundColor: '#ffffff'}}/>
-                  </View>                
+                  <TouchableOpacity onPress={()=>{console.log('pressed')}} key={index} >
+
+                  <View  style={{justifyContent:'flex-start',flexDirection:'row'}} >
+                  <View>
+                     <Image 
+                        style={{
+                          height: 100,
+                          width: 100,
+                          borderWidth: 5,
+                          borderRadius: 10
+                        }}
+                        source={require('../../../assets/images/logo.png')}
+                      />
+                  </View>
+                  <View style={{justifyContent:'space-around',marginLeft:10}}>
+                  <Headline>Cow # {index+1}</Headline>
+                    <Text>{"Farm ID :"+ type.farmid + "\nOwner ID : "+type.ownerid}</Text>
+                  </View>
+                </View>
+                </TouchableOpacity>
                 );
               })
             }
-            </ListSection>
-    
               
             </ScrollView>
     
             <Button
+                style={{
+                  borderWidth: 5,
+                  borderColor:'white',
+                  borderRadius: 25,
+                  marginTop:10,
+                  marginBottom:10,
+                  width:200
+                }}
                 raised
                 onPress={() => this.props.navigation.navigate("Tab1Details",{ hideTabBar: true })}
+
               >
                 <Text>Go to details screen</Text>
             </Button>
