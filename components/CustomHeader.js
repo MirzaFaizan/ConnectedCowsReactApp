@@ -7,7 +7,7 @@ const CustomHeader = props => {
   return (
     <View
       style={{
-        height: 56,
+        height: 30,
         marginTop: Platform.OS == "ios" ? 20 : 0 
       }}
     >

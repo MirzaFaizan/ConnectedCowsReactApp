@@ -58,7 +58,7 @@ class HomeScreen extends React.Component {
           label='Username'
           value={this.state.username}
           onChangeText={username => this.setState({ username })}
-          width={200}
+          width={300}
         />
 
         <TextInput
@@ -66,12 +66,19 @@ class HomeScreen extends React.Component {
           secureTextEntry={true}
           value={this.state.password}
           onChangeText={password => this.setState({ password })}
-          width={200}
+          width={300}
         />
 
         <Divider/>
 
         <Button
+          style={{
+            borderWidth: 5,
+            borderColor:'white',
+            borderRadius: 25,
+            marginTop:5,
+            width:200
+          }}
             raised
             onPress={this.Login}
           >

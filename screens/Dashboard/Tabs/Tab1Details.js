@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import PureChart from 'react-native-pure-chart';
+import {Card } from 'react-native-elements';
 
 
 let sampleDataPie = [
@@ -62,6 +63,8 @@ class Tab1Details extends React.Component {
     else{
       return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Card
+    title='HELLO WORLD'></Card>
       <Text>Line Graph</Text>
         <PureChart  data={this.state.dataSource} type='line' />
       <Text>Pie Chart</Text>
