@@ -76,7 +76,7 @@ class HomeScreen extends React.Component {
             borderWidth: 5,
             borderColor:'white',
             borderRadius: 25,
-            marginTop:5,
+            marginTop:10,
             width:200
           }}
             raised
@@ -97,5 +97,7 @@ class HomeScreen extends React.Component {
     );
   }
 }
+
+
 
 export default HomeScreen;

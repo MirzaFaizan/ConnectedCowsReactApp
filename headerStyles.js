@@ -6,6 +6,7 @@ export default {
     fontWeight: "bold",
     color: "#fff",
     fontSize: 18,
+    justifyContent:'center',
     zIndex: 1,
     lineHeight: 23
   },

@@ -7,8 +7,9 @@ const CustomHeader = props => {
   return (
     <View
       style={{
-        height: 30,
-        marginTop: Platform.OS == "ios" ? 20 : 0 
+        height: 56,
+        marginTop: Platform.OS == "ios" ? 20 : 0 ,
+        alignContent:'center'
       }}
     >
       <LinearGradient

@@ -41,6 +41,13 @@ class Tab2Screen extends React.Component {
 
         <Button
             raised
+            style={{
+              borderWidth: 5,
+              borderColor:'white',
+              borderRadius: 25,
+              marginTop:10,
+              width:200
+            }}
             onPress={this.sendMessage}
           >
             <Text>Send Message</Text>

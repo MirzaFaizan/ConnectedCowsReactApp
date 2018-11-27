@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 
-import { Button, ListSection, ListItem} from "react-native-paper";
+import { Button, ListSection, ListItem, Headline} from "react-native-paper";
 import {Ionicons} from '@expo/vector-icons';
 import { Divider } from "react-native-elements";
 
@@ -58,6 +58,24 @@ class Tab1Screen extends React.Component {
     
             <ScrollView style={{width:350,top:20}}>
             
+            <View style={{justifyContent:'flex-start',flexDirection:'row'}} onPress={()=>{console.log('touch')}}>
+              <View>
+                 <Image 
+                    style={{
+                      height: 100,
+                      width: 100,
+                      borderWidth: 5,
+                      borderRadius: 10
+                    }}
+                    source={require('../../../assets/images/logo.png')}
+                  />
+              </View>
+              <View style={{justifyContent:'space-around'}}>
+              <Headline>Title</Headline>
+                <Text>description</Text>
+              </View>
+            </View>
+
             <ListSection>
             {Object.values(this.state.dataSource.info).map((type,index) => {
                 return (
@@ -65,8 +83,10 @@ class Tab1Screen extends React.Component {
                     <ListItem 
                       title={"Cow # "+index+1}
                       description={"Farm ID :"+ type.farmid + "\nOwner ID : "+type.ownerid}
+                      left={()=>{<Text>wow</Text>}}
                       onPress={()=>console.log(index)}
                     />
+                  
                     <Divider style={{height: 5, backgroundColor: '#ffffff'}}/>
                   </View>                
                 );

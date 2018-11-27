@@ -1,8 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
+import {Headline} from "react-native-paper";
 import PureChart from 'react-native-pure-chart';
-import {Card } from 'react-native-elements';
-
 
 let sampleDataPie = [
 {
@@ -27,7 +26,7 @@ class Tab1Details extends React.Component {
     super(props);
     this.state={
       isLoading: true,
-      dataSource:[]
+      dataSource:[],
     }
   }
 
@@ -62,17 +61,39 @@ class Tab1Details extends React.Component {
     }
     else{
       return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Card
-    title='HELLO WORLD'></Card>
-      <Text>Line Graph</Text>
-        <PureChart  data={this.state.dataSource} type='line' />
-      <Text>Pie Chart</Text>
-        <PureChart data={sampleDataPie} type='pie' />
-
-      </View>
+        <View>
+            <View style={styles.containerStyle}>        
+              <Headline>Line Graph (temprature wrt time)</Headline>
+              <PureChart  data={this.state.dataSource} type='line' />
+            </View>
+            
+            <View style={styles.containerStyle}>
+              <Headline>Piechart</Headline>
+              <PureChart data={sampleDataPie} type='pie' />
+            </View>
+        </View>
     );}
     
+  }
+}
+
+const styles ={
+  containerStyle:{
+      marginTop:30,
+      borderWidth:1,
+      borderRadius:2,
+      borderColor:'#ddd',
+      shadowColor:'#000',
+      shadowOffset:{width:0,height:2},
+      shadowOpacity:0.1,
+      shadowRadius:2,
+      elevation:2,
+      marginLeft:5,
+      marginRight:5,
+       padding:5,
+      backgroundColor:'white',
+      justifyContent:'center',
+      alignItems:"center"
   }
 }
 

@@ -11,7 +11,7 @@ const Routes = createStackNavigator(
     Home: {
       screen: Home,
       navigationOptions: {
-        headerTitle: "Home",
+        headerTitle: "Connected Cows",
         header: props => <CustomHeader {...props} />
       }
     },
