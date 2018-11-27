@@ -1,7 +1,9 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import {Headline} from "react-native-paper";
 import PureChart from 'react-native-pure-chart';
+import Dialog from "react-native-dialog";
+
 
 let sampleDataPie = [
 {
@@ -26,7 +28,10 @@ class Tab1Details extends React.Component {
     super(props);
     this.state={
       isLoading: true,
+      health:{},
+      LoadingHealth:true,
       dataSource:[],
+      alertDialog:false
     }
   }
 
@@ -38,17 +43,42 @@ class Tab1Details extends React.Component {
         let LineGraph = responseJson.info.map((item)=>{
           return {y:item.temp,x:item.createdOn}
         })
-        console.log(LineGraph);
         this.setState({
           isLoading: false,
           dataSource: LineGraph,
+          
         });
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
+
+      fetch('https://connectedcows.herokuapp.com/health/showRecords')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson.info[responseJson.info.length-1])
+        if(responseJson.info[responseJson.info.length-1].status==='Well'){
+          this.setState({
+            LoadingHealth:false,
+            health:responseJson.info[responseJson.info.length-1]
+          })
+        } else {
+          this.setState({
+            alertDialog:true,
+            LoadingHealth:false,
+            health:responseJson.info[responseJson.info.length-1]
+          })
+        }
+
       })
       .catch((error) =>{
         console.error(error);
       });
   }
 
+  handleCancel = () => {
+    this.setState({ alertDialog: false });
+  };
 
   render() {
     
@@ -62,15 +92,37 @@ class Tab1Details extends React.Component {
     else{
       return (
         <View>
+          <ScrollView>
+            <Text style={{fontSize:40, fontWeight:'bold', marginTop:30, alignSelf:'center'}}>Vitals</Text>
+            <View style={styles.containerStyle}>
+              <View style={{flexDirection:'row', justifyContent:'flex-start'}}>
+                <Headline style={{fontWeight:'bold'}}>Temperature : </Headline>
+                <Headline>{Math.floor(this.state.health.avg_temp,2)}</Headline>
+              </View>
+              <View style={{flexDirection:'row', justifyContent:'flex-start'}}>
+                <Headline style={{fontWeight:'bold'}}>Status : </Headline>
+                <Headline>{this.state.health.status}</Headline>
+              </View>
+            </View>        
+            
             <View style={styles.containerStyle}>        
-              <Headline>Line Graph (temprature wrt time)</Headline>
+              <Headline>Line Graph</Headline>
               <PureChart  data={this.state.dataSource} type='line' />
             </View>
             
             <View style={styles.containerStyle}>
-              <Headline>Piechart</Headline>
+              <Headline>Pie Chart</Headline>
               <PureChart data={sampleDataPie} type='pie' />
             </View>
+
+          </ScrollView>
+          <Dialog.Container visible={this.state.alertDialog}>
+          <Dialog.Title>Alert</Dialog.Title>
+          <Dialog.Description>
+            The Current Animal's health is unstable
+          </Dialog.Description>
+          <Dialog.Button label="Okay" onPress={this.handleCancel} />
+        </Dialog.Container>
         </View>
     );}
     
