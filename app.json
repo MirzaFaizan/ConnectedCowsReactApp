@@ -22,7 +22,12 @@
       ]
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "com.dmt.connectedcows"
+
+    },
+    "android":{
+      "package" : "com.dmt.connectedcows"
     }
   }
 }
