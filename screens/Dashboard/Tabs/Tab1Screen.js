@@ -22,7 +22,10 @@ class Tab1Screen extends React.Component {
     super(props);
     this.state={
       isLoading:true,
-      dataSource:{}
+      LoadingHealth:false,
+      dataSource:{},
+      health:{}
+
     }
   }
 
@@ -40,6 +43,28 @@ class Tab1Screen extends React.Component {
       .catch((error) =>{
         console.error(error);
       });
+
+      fetch('https://connectedcows.herokuapp.com/health/showRecords')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson.info[responseJson.info.length-1])
+        if(responseJson.info[responseJson.info.length-1].status==='Well'){
+          this.setState({
+            LoadingHealth:false,
+            health:responseJson.info[responseJson.info.length-1]
+          })
+        } else {
+          this.setState({
+            LoadingHealth:false,
+            health:responseJson.info[responseJson.info.length-1]
+          })
+        }
+
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
+
   }
 
 
@@ -58,7 +83,7 @@ class Tab1Screen extends React.Component {
             
             {Object.values(this.state.dataSource.info).map((type,index) => {
                 return (
-                  <TouchableOpacity onPress={()=>{console.log('pressed')}} key={index} >
+                  <TouchableOpacity onPress={()=>{this.props.navigation.navigate("Tab1Details",{ hideTabBar: true })}} key={index} >
 
                   <View  style={{justifyContent:'flex-start',flexDirection:'row'}} >
                   <View>
@@ -74,7 +99,7 @@ class Tab1Screen extends React.Component {
                   </View>
                   <View style={{justifyContent:'space-around',marginLeft:10}}>
                   <Headline>Cow # {index+1}</Headline>
-                    <Text>{"Farm ID :"+ type.farmid + "\nOwner ID : "+type.ownerid}</Text>
+                    <Text>{"Temprature : "+Math.floor(this.state.health.avg_temp,2)+" \n Status : "+ this.state.health.status  }</Text>
                   </View>
                 </View>
                 </TouchableOpacity>
