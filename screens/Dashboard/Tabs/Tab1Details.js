@@ -57,7 +57,7 @@ class Tab1Details extends React.Component {
       .then((response) => response.json())
       .then((responseJson) => {
         console.log(responseJson.info[responseJson.info.length-1])
-        if(responseJson.info[responseJson.info.length-1].status==='Well'){
+        if(responseJson.info[responseJson.info.length-1].status==='Normal'){
           this.setState({
             LoadingHealth:false,
             health:responseJson.info[responseJson.info.length-1]
