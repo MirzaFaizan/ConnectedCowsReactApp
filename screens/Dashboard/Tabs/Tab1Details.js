@@ -31,7 +31,10 @@ class Tab1Details extends React.Component {
       health:{},
       LoadingHealth:true,
       dataSource:[],
-      alertDialog:false
+      alertDialog:false,
+      dataSourceEnvTemp:[],
+      dataSourceEnvHum:[],
+      mainData:[]
     }
   }
 
@@ -40,13 +43,26 @@ class Tab1Details extends React.Component {
       .then((response) => response.json())
       .then((responseJson) => {
         
+        console.log(responseJson);
+        
         let LineGraph = responseJson.info.map((item)=>{
           return {y:item.temp,x:item.createdOn}
-        })
+        });
+
+        let envHumidityLG = responseJson.info.map((item)=>{
+          return {y:item.env_humidity,x:item.createdOn}
+        });
+
+        let envTempLG = responseJson.info.map((item)=>{
+          return {y:item.env_temp,x:item.createdOn}
+        });
+
         this.setState({
           isLoading: false,
           dataSource: LineGraph,
-          
+          dataSourceEnvTemp: envTempLG,
+          dataSourceEnvHum: envHumidityLG,
+          mainData: responseJson.info[responseJson.info.length-1]
         });
       })
       .catch((error) =>{
@@ -56,7 +72,6 @@ class Tab1Details extends React.Component {
       fetch('https://connectedcows.herokuapp.com/health/showRecords')
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson.info[responseJson.info.length-1])
         if(responseJson.info[responseJson.info.length-1].status==='Normal'){
           this.setState({
             LoadingHealth:false,
@@ -97,21 +112,42 @@ class Tab1Details extends React.Component {
             <View style={styles.containerStyle}>
               <View style={{flexDirection:'row', justifyContent:'flex-start'}}>
                 <Headline style={{fontWeight:'bold'}}>Temperature : </Headline>
-                <Headline>{Math.floor(this.state.health.avg_temp,2)}</Headline>
+                <Headline>{Math.floor(this.state.health.avg_temp,2)} °C</Headline>
               </View>
               <View style={{flexDirection:'row', justifyContent:'flex-start'}}>
-                <Headline style={{fontWeight:'bold'}}>Status : </Headline>
-                <Headline>{this.state.health.status}</Headline>
+                <Headline style={{fontWeight:'bold'}}>ENV Humidity : </Headline>
+                <Headline>{Math.floor(this.state.mainData.env_humidity,2)} %</Headline>
               </View>
-            </View>        
+              <View style={{flexDirection:'row', justifyContent:'flex-start'}}>
+                <Headline style={{fontWeight:'bold'}}>ENV Temperature : </Headline>
+                <Headline>{Math.floor(this.state.mainData.env_temp,2)} °C</Headline>
+              </View>
+            </View>
+
+            <View style={styles.containerStyle}>
+              <View style={{flexDirection:'row', justifyContent:'center'}}>
+                <Headline style={{fontWeight:'bold'}}>Status </Headline>
+                <Headline style={{fontSize:15}} >{this.state.health.status}</Headline>
+              </View>
+            </View>
             
             <View style={styles.containerStyle}>        
-              <Headline>Line Graph</Headline>
+              <Headline>Body Temprature</Headline>
               <PureChart  data={this.state.dataSource} type='line' />
+            </View>
+
+            <View style={styles.containerStyle}>        
+              <Headline>Environment Humidity</Headline>
+              <PureChart  data={this.state.dataSourceEnvHum} type='line' />
+            </View>
+
+            <View style={styles.containerStyle}>        
+              <Headline>Environment Temperature</Headline>
+              <PureChart  data={this.state.dataSourceEnvTemp} type='line' />
             </View>
             
             <View style={styles.containerStyle}>
-              <Headline>Pie Chart</Headline>
+              <Headline>Body Temo Summary Chart</Headline>
               <PureChart data={sampleDataPie} type='pie' />
             </View>
 
