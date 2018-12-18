@@ -4,24 +4,6 @@ import {Headline} from "react-native-paper";
 import PureChart from 'react-native-pure-chart';
 import Dialog from "react-native-dialog";
 
-
-let sampleDataPie = [
-{
-  value: 50,
-  label: 'Good',
-  color: '#008dff',
-}, {
-  value: 40,
-  label: 'Moderate',
-  color: '#E0F2F1'
-}, {
-  value: 25,
-  label: 'High',
-  color: '#E53935'
-}
-
-]
-
 class Tab1Details extends React.Component {
 
   constructor(props){
@@ -72,7 +54,7 @@ class Tab1Details extends React.Component {
       fetch('https://connectedcows.herokuapp.com/health/showRecords')
       .then((response) => response.json())
       .then((responseJson) => {
-        if(responseJson.info[responseJson.info.length-1].status==='Normal'){
+        if(responseJson.info[responseJson.info.length-1].status==='Well ,No Stress'){
           this.setState({
             LoadingHealth:false,
             health:responseJson.info[responseJson.info.length-1]
@@ -126,7 +108,9 @@ class Tab1Details extends React.Component {
 
             <View style={styles.containerStyle}>
               <View style={{flexDirection:'row', justifyContent:'center'}}>
-                <Headline style={{fontWeight:'bold'}}>Status </Headline>
+                <Headline style={{fontWeight:'bold', fontSize:20}}>Status</Headline>
+              </View>
+              <View style={{flexDirection:'row', justifyContent:'center'}}>
                 <Headline style={{fontSize:15}} >{this.state.health.status}</Headline>
               </View>
             </View>
@@ -146,10 +130,6 @@ class Tab1Details extends React.Component {
               <PureChart  data={this.state.dataSourceEnvTemp} type='line' />
             </View>
             
-            <View style={styles.containerStyle}>
-              <Headline>Body Temo Summary Chart</Headline>
-              <PureChart data={sampleDataPie} type='pie' />
-            </View>
 
           </ScrollView>
           <Dialog.Container visible={this.state.alertDialog}>
