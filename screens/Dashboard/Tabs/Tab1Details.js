@@ -112,7 +112,7 @@ class Tab1Details extends React.Component {
             <View style={styles.containerStyle}>
               <View style={{flexDirection:'row', justifyContent:'flex-start'}}>
                 <Headline style={{fontWeight:'bold'}}>Temperature : </Headline>
-                <Headline>{Math.floor(this.state.health.avg_temp,2)} °C</Headline>
+                <Headline>{Math.floor(this.state.mainData.temp,2)} °C</Headline>
               </View>
               <View style={{flexDirection:'row', justifyContent:'flex-start'}}>
                 <Headline style={{fontWeight:'bold'}}>ENV Humidity : </Headline>

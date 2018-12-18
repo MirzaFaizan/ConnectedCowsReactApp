@@ -99,7 +99,7 @@ class Tab1Screen extends React.Component {
                   </View>
                   <View style={{justifyContent:'space-around',marginLeft:10}}>
                   <Headline>Cow # {index+1}</Headline>
-                    <Text>{"Temprature : "+Math.floor(this.state.health.avg_temp,2)+" \n Status : "+ this.state.health.status  }</Text>
+                    <Text>{" Status : "+ this.state.health.status  }</Text>
                   </View>
                 </View>
                 </TouchableOpacity>
