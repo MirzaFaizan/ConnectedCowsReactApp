@@ -18,10 +18,66 @@ class Tab1Details extends React.Component {
       dataSourceEnvHum:[],
       mainData:[]
     }
+
   }
 
   componentDidMount(){
-    fetch('https://connectedcows.herokuapp.com/records/ShowRecords')
+    // fetch('https://connectedcows.herokuapp.com/records/ShowRecords')
+    //   .then((response) => response.json())
+    //   .then((responseJson) => {
+        
+    //     console.log(responseJson);
+        
+    //     let LineGraph = responseJson.info.map((item)=>{
+    //       return {y:item.temp,x:item.createdOn}
+    //     });
+
+    //     let envHumidityLG = responseJson.info.map((item)=>{
+    //       return {y:item.env_humidity,x:item.createdOn}
+    //     });
+
+    //     let envTempLG = responseJson.info.map((item)=>{
+    //       return {y:item.env_temp,x:item.createdOn}
+    //     });
+
+    //     this.setState({
+    //       isLoading: false,
+    //       dataSource: LineGraph,
+    //       dataSourceEnvTemp: envTempLG,
+    //       dataSourceEnvHum: envHumidityLG,
+    //       mainData: responseJson.info[responseJson.info.length-1]
+    //     });
+    //   })
+    //   .catch((error) =>{
+    //     console.error(error);
+    //   });
+    
+    this.loadData()
+    setInterval(this.loadData, 10000);
+      fetch('https://connectedcows.herokuapp.com/health/showRecords')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        if(responseJson.info[responseJson.info.length-1].status==='Well ,No Stress'){
+          this.setState({
+            LoadingHealth:false,
+            health:responseJson.info[responseJson.info.length-1]
+          })
+        } else {
+          this.setState({
+            alertDialog:true,
+            LoadingHealth:false,
+            health:responseJson.info[responseJson.info.length-1]
+          })
+        }
+
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
+  }
+
+  loadData=()=> {
+     fetch('https://connectedcows.herokuapp.com/records/ShowRecords')
       .then((response) => response.json())
       .then((responseJson) => {
         
@@ -50,28 +106,8 @@ class Tab1Details extends React.Component {
       .catch((error) =>{
         console.error(error);
       });
+ }
 
-      fetch('https://connectedcows.herokuapp.com/health/showRecords')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        if(responseJson.info[responseJson.info.length-1].status==='Well ,No Stress'){
-          this.setState({
-            LoadingHealth:false,
-            health:responseJson.info[responseJson.info.length-1]
-          })
-        } else {
-          this.setState({
-            alertDialog:true,
-            LoadingHealth:false,
-            health:responseJson.info[responseJson.info.length-1]
-          })
-        }
-
-      })
-      .catch((error) =>{
-        console.error(error);
-      });
-  }
 
   handleCancel = () => {
     this.setState({ alertDialog: false });
